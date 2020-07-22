@@ -4,7 +4,6 @@ namespace Tests\Helpers;
 
 use App\Contracts\Repositories\RepositoryContract;
 use Illuminate\Database\Eloquent\Model;
-use Tests\Models\Core\TestSampleModel;
 
 class RepositoryData
 {
@@ -75,7 +74,7 @@ trait RepositoryDataManipulationHelper
         $modelClass = $this->getModelClass();
         $item = factory($modelClass)->create($this->data->create);
 
-        $data = \array_merge(['id' => $item->id], $this->data->update);
+        $data = array_merge(['id' => $item->id], $this->data->update);
         $itemUpdated = $this->repository->store($data);
 
         $this->assertInstanceOf($modelClass, $itemUpdated);
@@ -105,7 +104,7 @@ trait RepositoryDataManipulationHelper
      */
     private function getModelClass(): string
     {
-        return \get_class($this->model);
+        return get_class($this->model);
     }
 
     /**

@@ -18,7 +18,7 @@ class CreateRolesTable extends Migration
             $table->string('name', 80);
             $table->tinyInteger('type')
                 ->unsigned()
-                ->default(2)
+                ->default(999)
                 ->comment('values: 1 - user, 999 - common');
         });
     }

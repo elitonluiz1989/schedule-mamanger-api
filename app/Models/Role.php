@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Models\ModelAccessorHelper;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
@@ -21,10 +22,10 @@ class Role extends Model
      */
     public function setTypeAttribute($value)
     {
-        $roleTypes = [1, 999];//config('common.roles.types');
+        $roleTypes = config('common.roles.types');
 
-        if (!\in_array($value, $roleTypes)) {
-            throw new \Exception(trans('common.roles.types.invalid'));
+        if (!in_array($value, $roleTypes)) {
+            throw new Exception(trans('common.roles.types.invalid'));
         }
 
         $this->attributes['type'] = $value;

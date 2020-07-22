@@ -16,19 +16,13 @@ trait RepositoryHelper
 	];
 
 	/**
-	 * Current page on pagination
+	 * Repository properties
 	 */
-	private int $page = 1;
-
-	/**
-	 * Limit data per page value
-	 */
-	private int $limit = 12;
-
-	/**
-	 * Desired columns to be retrieved on search
-	 */
-	private array $columns = [];
+	private array $properties = [
+	    'page' => 1,
+        'limit' => 12,
+        'columns' => []
+    ];
 
 	/**
 	 * Properties setter
@@ -40,12 +34,12 @@ trait RepositoryHelper
 	 */
 	public function __set(string $property, $value): void
 	{
-		if (\in_array($property, $this->propertiesDenied['set'])) {
+		if (in_array($property, $this->propertiesDenied['set'])) {
 			throw new Exception(trans('common.validation.visibility.internal.set', ['property' => $property]));
 		}
 
 		if ($property == 'page') {
-			if (!\is_int($value)) {
+			if (!is_int($value)) {
 				throw new Exception(trans('common.validation.type.int', ['property' => $property]));
 			}
 
@@ -54,15 +48,15 @@ trait RepositoryHelper
 			}
 		}
 
-		if ($property == 'limit' && !\is_int($value)) {
+		if ($property == 'limit' && !is_int($value)) {
 			throw new Exception(trans('common.validation.type.int', ['property' => $property]));
 		}
 
-		if (($property == 'columns') &&  (!\is_array($value))) {
+		if (($property == 'columns') &&  (!is_array($value))) {
 			throw new Exception(trans('common.validation.type.array', ['property' => $property]));
 		}
 
-		$this->$property = $value;
+		$this->properties[$property] = $value;
 	}
 
 	/**
@@ -74,9 +68,9 @@ trait RepositoryHelper
 	public function __get(string $property)
 	{
 		if ($property == 'offset') {
-			return $this->page * $this->limit;
+			return $this->properties['page'] * $this->properties['limit'];
 		}
 
-		return $this->$property;
+		return $this->properties[$property];
 	}
 }
