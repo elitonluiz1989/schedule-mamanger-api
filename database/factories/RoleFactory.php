@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Models\Role;
 use Faker\Generator as Faker;
 
 /*
@@ -15,9 +16,9 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(\App\Models\Role::class, function (Faker $faker) {
+$factory->define(Role::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->firstName,
         'type' => 1
     ];
 });

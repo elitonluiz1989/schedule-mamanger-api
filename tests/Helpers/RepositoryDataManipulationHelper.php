@@ -5,11 +5,41 @@ namespace Tests\Helpers;
 use App\Contracts\Repositories\RepositoryContract;
 use Illuminate\Database\Eloquent\Model;
 
+class RepositoryDataItem
+{
+    public array $data;
+
+    public array $exclude;
+
+    /**
+     * Retrieve the recorded items on data
+     * If there're items to be excluded, they'll be removed
+     *
+     * @return array
+     */
+    public function items(): array
+    {
+        if (!empty($this->exclude)) {
+            return array_filter($this->data, function($key) {
+                return !in_array($key, $this->exclude);
+            }, ARRAY_FILTER_USE_KEY);
+        }
+
+        return $this->data;
+    }
+}
+
 class RepositoryData
 {
-    public array $create;
+    public RepositoryDataItem $create;
 
-    public array $update;
+    public RepositoryDataItem $update;
+
+    public function __construct()
+    {
+        $this->create = new RepositoryDataItem();
+        $this->update = new RepositoryDataItem();
+    }
 }
 
 trait RepositoryDataManipulationHelper
@@ -49,21 +79,25 @@ trait RepositoryDataManipulationHelper
         $id = rand(1, $amountRecords);
         $data = $this->repository->find(['id' => $id]);
 
-        $this->assertCount(1, $data);
-
         $item = $data->first();
+
+        $this->assertCount(1, $data);
         $this->assertInstanceOf($modelClass, $item);
-        $this->assertEquals($item->id, $id, "The data returned is not have the same value by 'id'.");
+
+        // Validation for case where id is a model hidden property
+        if (null != $item->id) {
+            $this->assertEquals($item->id, $id, "The data returned is not have the same value by 'id'.");
+        }
     }
 
     /** @test */
     public function it_should_be_able_create_a_model_item(): void
     {;
-        $item = $this->repository->store($this->data->create);
+        $item = $this->repository->store($this->data->create->data);
 
         $this->assertInstanceOf($this->getModelClass(), $item);
 
-        foreach ($this->data->create as $key => $value) {
+        foreach ($this->data->create->items() as $key => $value) {
             $this->assertEquals($item->$key, $value);
         }
     }
@@ -72,15 +106,17 @@ trait RepositoryDataManipulationHelper
     public function it_should_to_able_update_a_model_item(): void
     {
         $modelClass = $this->getModelClass();
-        $item = factory($modelClass)->create($this->data->create);
+        $item = factory($modelClass)->create($this->data->create->data);
 
-        $data = array_merge(['id' => $item->id], $this->data->update);
+        $data = array_merge(['id' => $item->id], $this->data->update->data);
         $itemUpdated = $this->repository->store($data);
 
         $this->assertInstanceOf($modelClass, $itemUpdated);
-        $this->assertEquals($itemUpdated->id, $item->id, "The data returned is not have the same value by 'id'.");
+        if (null != $item->id) {
+            $this->assertEquals($itemUpdated->id, $item->id, "The data returned is not have the same value by 'id'.");
+        }
 
-        foreach ($this->data->update as $key => $value) {
+        foreach ($this->data->update->items() as $key => $value) {
             $this->assertEquals($itemUpdated->$key, $value);
         }
     }
@@ -88,7 +124,7 @@ trait RepositoryDataManipulationHelper
     /** @test */
     public function it_should_to_able_remove_a_model_item(): void
     {
-        $item = factory($this->getModelClass())->create($this->data->create);
+        $item = factory($this->getModelClass())->create($this->data->create->data);
 
         $isDeleted = $this->repository->remove(['id' => $item->id]);
         $itemDeleted = $this->model->find($item->id);

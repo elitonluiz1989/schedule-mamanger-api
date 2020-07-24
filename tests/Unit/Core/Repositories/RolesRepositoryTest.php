@@ -23,11 +23,11 @@ class RolesRepositoryTest extends TestCase
         $this->repository->columns = ['id', 'name', 'type'];
         $this->model = new Role();
         $this->data = new RepositoryData();
-        $this->data->create = [
+        $this->data->create->data = [
             'name' => 'administrator',
             'type' => 1
         ];
-        $this->data->update = [
+        $this->data->update->data = [
             'name' => 'usertest',
             'type' => 999
         ];
