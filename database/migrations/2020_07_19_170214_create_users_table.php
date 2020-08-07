@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('name', 80)->nullable();
             $table->string('email')->nullable();
             $table->text('avatar')->nullable();
-            $table->integer('role_id')->unsigned()->nullable();
+            $table->integer('role_id')->unsigned();
             $table->string('api_token')->nullable();
             $table->timestamps();
         });
@@ -30,7 +30,8 @@ class CreateUsersTable extends Migration
             $table->foreign('role_id')
                 ->references('id')
                 ->on('roles')
-                ->onDelete('set null');
+                ->onDelete('cascade')
+                ->onDelete('restrict');
         });
     }
 

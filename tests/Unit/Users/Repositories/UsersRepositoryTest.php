@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Users\Repositories;
 
+use App\Models\Role;
 use App\Modules\Users\Models\User;
 use App\Modules\Users\Repositories\UsersRepository;
 use App\Repositories\BaseRepository;
@@ -19,23 +20,30 @@ class UsersRepositoryTest extends TestCase
 
         $this->repository = new UsersRepository();
         $this->model = new User();
-        $this->data = new RepositoryData();
-        $this->data->create->data =  [
-            'username' => 'usertest',
-            'name' => 'User Test',
-            'password' => 'secret',
-            'avatar' => 'http://path-to-image/001.jpg',
-            'email' => 'usertest@test.com'
-        ];
-        $this->data->create->exclude = ['password'];
-        $this->data->update->data = [
-            'username' => 'anotherusertest',
-            'name' => 'Another User Test',
-            'password' => 'secret2',
-            'avatar' => 'http://path-to-image/002.jpg',
-            'email' => 'anotherusertest@test.com'
-        ];
-        $this->data->update->exclude = ['password'];
+        $this->data = new RepositoryData([
+            'create' => [
+                'data' => [
+                    'username' => 'usertest',
+                    'name' => 'User Test',
+                    'password' => 'secret',
+                    'avatar' => 'http://path-to-image/001.jpg',
+                    'email' => 'usertest@test.com',
+                    'role_id' => factory(Role::class)->create()->first()->id
+                ],
+                'exclude' => ['password']
+            ],
+            'update' => [
+                'data' => [
+                    'username' => 'anotherusertest',
+                    'name' => 'Another User Test',
+                    'password' => 'secret2',
+                    'avatar' => 'http://path-to-image/002.jpg',
+                    'email' => 'anotherusertest@test.com',
+                    'role_id' => factory(Role::class)->create()->first()->id
+                ],
+                'exclude' => ['password']
+            ]
+        ]);
     }
 
     /** @test */
