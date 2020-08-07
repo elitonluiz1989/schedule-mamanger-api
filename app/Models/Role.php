@@ -25,7 +25,7 @@ class Role extends Model
         $roleTypes = config('common.roles.types');
 
         if (!in_array($value, $roleTypes)) {
-            throw new Exception(trans('common.roles.types.invalid'));
+            throw new Exception(trans('roles.type.invalid'));
         }
 
         $this->attributes['type'] = $value;

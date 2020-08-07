@@ -30,7 +30,7 @@ trait RepositoryTestHelper
     public function it_should_not_be_able_set_an_wrong_value_to_page_property()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage(trans('common.validation.type.int', ['property' => 'page']));
+        $this->expectExceptionMessage(trans('common.object.type.int', ['property' => 'page']));
         $this->repository->page = 'a';
     }
 
@@ -55,7 +55,7 @@ trait RepositoryTestHelper
     public function it_should_not_be_able_set_an_wrong_value_to_limit_property()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage(trans('common.validation.type.int', ['property' => 'limit']));
+        $this->expectExceptionMessage(trans('common.object.type.int', ['property' => 'limit']));
         $this->repository->limit = 'apple';
     }
 
@@ -73,7 +73,7 @@ trait RepositoryTestHelper
     public function it_should_not_be_able_set_an_wrong_value_to_columns_property()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage(trans('common.validation.type.array', ['property' => 'columns']));
+        $this->expectExceptionMessage(trans('common.object.type.array', ['property' => 'columns']));
         $this->repository->columns = 'abc';
     }
 
@@ -90,7 +90,7 @@ trait RepositoryTestHelper
     public function it_should_not_be_able_set_an_value_to_offset_property()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage(trans('common.validation.visibility.internal.set', ['property' => 'offset']));
+        $this->expectExceptionMessage(trans('common.object.visibility.internal.set', ['property' => 'offset']));
         $this->repository->offset = 10;
     }
 }

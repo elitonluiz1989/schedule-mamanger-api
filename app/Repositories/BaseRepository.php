@@ -5,8 +5,9 @@ namespace App\Repositories;
 use App\Contracts\Repositories\RepositoryContract;
 use App\Helpers\Repositories\RepositoryHelper;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
+use\Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use ReflectionClass;
+use ReflectionException;
 
 class BaseRepository implements RepositoryContract
 {
@@ -51,9 +52,9 @@ class BaseRepository implements RepositoryContract
 	 *
 	 * @param array $filters
 	 * @return LengthAwarePaginator
-	 */
+     */
 	public function find(array $filters = []): LengthAwarePaginator
-	{
+    {
 		$query = $this->model->query();
 
 		if (count($filters) > 0) {
@@ -68,7 +69,7 @@ class BaseRepository implements RepositoryContract
 	}
 
 	/**
-	 * Save past data
+	 * Saves passed data
 	 *
 	 * @param array 	$data
 	 * @param string	$key
@@ -78,7 +79,7 @@ class BaseRepository implements RepositoryContract
 	{
 		$model = $this->getNewModel();
 
-		if (\array_key_exists($key, $data)) {
+		if (array_key_exists($key, $data)) {
 			$model = $this->model->where($key, $data[$key])->first();
 
 			unset($data[$key]);
@@ -111,14 +112,15 @@ class BaseRepository implements RepositoryContract
 	 * Class's tools
 	 */
 
-	/**
-	 * Returns the model instance of child repository class
-	 *
-	 * @return object
-	 */
+    /**
+     * Returns the model instance of child repository class
+     *
+     * @return object
+     * @throws ReflectionException
+     */
 	private function getNewModel(): object
 	{
-		$className = \get_class($this->model);
+		$className = get_class($this->model);
 		$reflection = new ReflectionClass($className);
 
 		return $reflection->newInstance();

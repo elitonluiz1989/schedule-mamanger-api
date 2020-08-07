@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class RepositoryDataItem
 {
-    public array $data;
+    public array $data = [];
 
-    public array $exclude;
+    public array $exclude = [];
 
     /**
      * Retrieve the recorded items on data
@@ -35,10 +35,20 @@ class RepositoryData
 
     public RepositoryDataItem $update;
 
-    public function __construct()
+    public function __construct(array $data = [])
     {
         $this->create = new RepositoryDataItem();
         $this->update = new RepositoryDataItem();
+
+        foreach ($data as $dataItem => $dataItemContent) {
+            if (property_exists($this, $dataItem)) {
+                foreach ($dataItemContent as $dataItemProp => $dataItemPropValue) {
+                    if (property_exists($this->$dataItem, $dataItemProp)) {
+                        $this->$dataItem->$dataItemProp = $dataItemPropValue;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -61,11 +71,15 @@ trait RepositoryDataManipulationHelper
         $item = $data->first();
 
         $this->assertEquals($amountRecords, $data->total());
-        $this->assertCount($this->repository->limit, $data);
+        if ($this->repository->limit > 0) {
+            $this->assertCount($this->repository->limit, $data);
+        }
         $this->assertInstanceOf($modelClass, $item);
 
-        foreach ($this->repository->columns as $column) {
-            $this->assertNotEquals($item->$column, null, "The data returned does not have the '$column' column.");
+        if (!empty($this->repository->columns)) {
+            foreach ($this->repository->columns as $column) {
+                $this->assertNotEquals($item->$column, null, "The data returned does not have the '$column' column.");
+            }
         }
     }
 
@@ -150,7 +164,13 @@ trait RepositoryDataManipulationHelper
      */
     private function getAmountOfRecords(): int
     {
-        $amount = $this->repository->limit * rand(2, 3);
+        $limit = $this->repository->limit;
+
+        if ($limit == 0) {
+            $limit = 12;
+        }
+
+        $amount = $limit * rand(2, 3);
         $amount += ($amount / rand(1, 9));
         $amount = (int)ceil($amount);
 

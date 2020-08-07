@@ -43,7 +43,7 @@ class RolesRepositoryTest extends TestCase
     public function it_should_not_able_insert_a_record_with_a_invalid_type(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage(trans('common.roles.types.invalid'));
+        $this->expectExceptionMessage(trans('roles.type.invalid'));
         $this->repository->store([
             'name' => 'user',
             'type' => 54564

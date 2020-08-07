@@ -35,12 +35,12 @@ trait RepositoryHelper
 	public function __set(string $property, $value): void
 	{
 		if (in_array($property, $this->propertiesDenied['set'])) {
-			throw new Exception(trans('common.validation.visibility.internal.set', ['property' => $property]));
+			throw new Exception(trans('common.object.visibility.internal.set', ['property' => $property]));
 		}
 
 		if ($property == 'page') {
 			if (!is_int($value)) {
-				throw new Exception(trans('common.validation.type.int', ['property' => $property]));
+				throw new Exception(trans('common.object.type.int', ['property' => $property]));
 			}
 
 			if ($value <= 0) {
@@ -49,11 +49,11 @@ trait RepositoryHelper
 		}
 
 		if ($property == 'limit' && !is_int($value)) {
-			throw new Exception(trans('common.validation.type.int', ['property' => $property]));
+			throw new Exception(trans('common.object.type.int', ['property' => $property]));
 		}
 
 		if (($property == 'columns') &&  (!is_array($value))) {
-			throw new Exception(trans('common.validation.type.array', ['property' => $property]));
+			throw new Exception(trans('common.object.type.array', ['property' => $property]));
 		}
 
 		$this->properties[$property] = $value;
