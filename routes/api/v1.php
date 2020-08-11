@@ -10,7 +10,7 @@ Route::get('/', function () {
 	$info->name = config('app.name');
 	$info->version = env('APP_VERSION', '1.0.0');
 	$info->timezone = $timezone;
-	$info->dateTime = Carbon::now($timezone);
+	$info->datetime = Carbon::now($timezone);
 
     return response()->json($info);
 });
