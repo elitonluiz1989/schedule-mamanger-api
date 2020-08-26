@@ -3,11 +3,11 @@
 namespace Tests\Unit\Core\Repositories;
 
 use App\Repositories\BaseRepository;
-use Tests\Helpers\RepositoryData;
-use Tests\Helpers\RepositoryDataManipulationHelper;
-use Tests\Helpers\RepositoryTestHelper;
 use Tests\TestCase;
 use Tests\Models\Core\TestSampleModel;
+use Tests\Unit\Helpers\RepositoryData;
+use Tests\Unit\Helpers\RepositoryDataManipulationHelper;
+use Tests\Unit\Helpers\RepositoryTestHelper;
 
 class BaseRepositoryTest extends TestCase
 {

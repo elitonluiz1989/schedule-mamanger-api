@@ -1,39 +1,39 @@
 version: '3'
 
 services:
-    schedule-manager.php:
-        image: elitonluiz1989/php
+  schedule-manager.php:
+    image: elitonluiz1989/php
 
-        container_name: schedule-manager.php
+    container_name: schedule-manager.php
 
-        ports:
-            - "8000:8000"
-            - "9000:9000"
+    ports:
+      - "8000:8000"
+      - "9000:9000"
 
-        volumes:
-            - .:/var/www/html/
+    volumes:
+      - .:/var/www/html/
 
-        working_dir: /var/www/html/
+    working_dir: /var/www/html/
 
-        networks:
-            - schedule-manager.api
+    networks:
+      - schedule-manager.api
 
-    schedule-manager.mysql:
-        image: mysql
+  schedule-manager.mysql:
+    image: mysql
 
-        container_name: schedule-manager.mysql
+    container_name: schedule-manager.mysql
 
-        ports:
-            - "3306:3306"
+    ports:
+      - "3306:3306"
 
-        networks:
-            - schedule-manager.api
+    networks:
+      - schedule-manager.api
 
-        environment:
-            - MYSQL_ROOT_PASSWORD=secret
-            - MYSQL_DATABASE=schedule-manager
-            - MYSQL_USER=elitonluiz
-            - MYSQL_PASSWORD=secret
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=schedule-manager
+      - MYSQL_USER=elitonluiz
+      - MYSQL_PASSWORD=secret
 
 networks:
-    schedule-manager.api:
+  schedule-manager.api:

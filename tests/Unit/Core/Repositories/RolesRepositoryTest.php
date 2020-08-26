@@ -6,9 +6,9 @@ use App\Models\Role;
 use App\Repositories\BaseRepository;
 use App\Repositories\RolesRepository;
 use Exception;
-use Tests\Helpers\RepositoryDataManipulationHelper;
-use Tests\Helpers\RepositoryData;
 use Tests\TestCase;
+use Tests\Unit\Helpers\RepositoryData;
+use Tests\Unit\Helpers\RepositoryDataManipulationHelper;
 
 class RolesRepositoryTest extends TestCase
 {
