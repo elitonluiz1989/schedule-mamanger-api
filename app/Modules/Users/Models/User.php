@@ -16,24 +16,13 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable, HasUuid;
 
     protected $fillable = [
-        'username', 'name', 'email', 'avatar', 'password', 'role_id'
+        'email', 'name', 'avatar', 'password', 'role_id'
     ];
 
 
     protected $hidden = [
-        'id', 'password', 'api_token'
+        'id', 'password'
     ];
-
-    /**
-     * Set username attribute to lowercase
-     *
-     * @param string $value Value property
-     * @return void
-     */
-    public function setUsernameAttribute(string $value): void
-    {
-        $this->attributes['username'] = strtolower($value);
-    }
 
     /**
      * Encrypt user password

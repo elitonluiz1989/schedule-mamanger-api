@@ -3,12 +3,13 @@
 namespace Tests\Unit\Users\Repositories;
 
 use App\Modules\Users\Helpers\UsersHelper;
+use App\Modules\Users\Models\User;
 use App\Modules\Users\Models\UserPermission;
 use App\Modules\Users\Repositories\UserPermissionsRepository;
 use App\Repositories\BaseRepository;
 use Exception;
-use Tests\Helpers\RepositoryData;
-use Tests\Helpers\RepositoryDataManipulationHelper;
+use Tests\Unit\Helpers\RepositoryData;
+use Tests\Unit\Helpers\RepositoryDataManipulationHelper;
 use Tests\TestCase;
 
 class UserPermissionsRepositoryTest extends TestCase
@@ -46,8 +47,6 @@ class UserPermissionsRepositoryTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage(trans('users.permission.invalid', ['property' => 'create', 'value' => $data['create']]));
         $this->repository->store($data);
-
-
     }
 
     /** @test */
@@ -81,5 +80,19 @@ class UserPermissionsRepositoryTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage(trans('users.permission.invalid', ['property' => 'delete', 'value' => $data['delete']]));
         $this->repository->store($data);
+    }
+
+    /** @test */
+    public function it_should_be_able_to_define_all_permissions_at_once(): void
+    {
+        $userId = factory(User::class)->create()->first()->id;
+
+        $userPermissions = $this->repository->storeAllPermissions($userId);
+
+        $this->assertEquals($userId, $userPermissions->id);
+        $this->assertEquals(true, $userPermissions->create);
+        $this->assertEquals(true, $userPermissions->read);
+        $this->assertEquals(true, $userPermissions->update);
+        $this->assertEquals(true, $userPermissions->delete);
     }
 }

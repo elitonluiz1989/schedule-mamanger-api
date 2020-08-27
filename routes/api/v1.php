@@ -14,3 +14,10 @@ Route::get('/', function () {
 
     return response()->json($info);
 });
+
+/*
+The including of nested routes need be done with require because require_once fails
+on the tests when we call the same route twice or more times
+*/
+
+require 'auth.php';

@@ -11,7 +11,7 @@ class UsersRepository extends BaseRepository
 	{
 		parent::__construct(new User());
 
-		$this->columns = ['uuid', 'username', 'name', 'avatar', 'email', 'api_token'];
+		$this->columns = ['uuid', 'email', 'name', 'avatar', 'role_id', 'api_token'];
 		$this->limit = 5;
 	}
 }

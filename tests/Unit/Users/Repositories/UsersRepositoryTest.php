@@ -6,9 +6,9 @@ use App\Models\Role;
 use App\Modules\Users\Models\User;
 use App\Modules\Users\Repositories\UsersRepository;
 use App\Repositories\BaseRepository;
-use Tests\Helpers\RepositoryData;
-use Tests\Helpers\RepositoryDataManipulationHelper;
 use Tests\TestCase;
+use Tests\Unit\Helpers\RepositoryData;
+use Tests\Unit\Helpers\RepositoryDataManipulationHelper;
 
 class UsersRepositoryTest extends TestCase
 {
@@ -23,7 +23,6 @@ class UsersRepositoryTest extends TestCase
         $this->data = new RepositoryData([
             'create' => [
                 'data' => [
-                    'username' => 'usertest',
                     'name' => 'User Test',
                     'password' => 'secret',
                     'avatar' => 'http://path-to-image/001.jpg',
@@ -34,7 +33,6 @@ class UsersRepositoryTest extends TestCase
             ],
             'update' => [
                 'data' => [
-                    'username' => 'anotherusertest',
                     'name' => 'Another User Test',
                     'password' => 'secret2',
                     'avatar' => 'http://path-to-image/002.jpg',

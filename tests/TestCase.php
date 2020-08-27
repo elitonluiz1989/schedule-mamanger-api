@@ -3,11 +3,13 @@
 namespace Tests;
 
 use App\Console\Kernel;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Tests\Helpers\InstancesHelper;
+use Tests\Helpers\JsonRequestHelper;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 abstract class TestCase extends BaseTestCase
@@ -15,14 +17,13 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication,
         DatabaseMigrations,
         RefreshDatabase,
-        InstancesHelper;
+        InstancesHelper,
+        JsonRequestHelper;
 
     /**
      * Set the default uri use on tests
-     *
-     * @var string
      */
-    private $uri;
+    private string $uri;
 
     public function setUp(): void
     {
@@ -53,15 +54,15 @@ abstract class TestCase extends BaseTestCase
     /**
      * Set the currently logged in user for the application.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  string|null                                $driver
-     *
-     * @return $this
+     * @param Authenticatable $user
+     * @param null $driver
+     * @return TestCase
      */
     public function actingAs($user, $driver = null)
     {
         $token = JWTAuth::fromUser($user);
         $this->withHeader('Authorization', "Bearer {$token}");
+        $user->api_token = $token;
         parent::actingAs($user);
 
         return $this;
