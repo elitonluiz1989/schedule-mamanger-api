@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\Users\Http\Controllers;
+namespace Modules\Users\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Users\Repositories\UsersRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\Users\Repositories\UsersRepository;
 
 class AuthController extends Controller
 {

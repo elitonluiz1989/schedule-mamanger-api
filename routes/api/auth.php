@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('\\App\\Modules\\Users\\Http\\Controllers')
+Route::namespace('\\Modules\\Users\\Http\\Controllers')
     ->prefix('auth')
     ->group(function () {
         Route::post('/login', 'AuthController@login')->name('auth.login');

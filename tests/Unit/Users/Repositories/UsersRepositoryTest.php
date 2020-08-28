@@ -3,9 +3,9 @@
 namespace Tests\Unit\Users\Repositories;
 
 use App\Models\Role;
-use App\Modules\Users\Models\User;
-use App\Modules\Users\Repositories\UsersRepository;
 use App\Repositories\BaseRepository;
+use Modules\Users\Models\User;
+use Modules\Users\Repositories\UsersRepository;
 use Tests\TestCase;
 use Tests\Unit\Helpers\RepositoryData;
 use Tests\Unit\Helpers\RepositoryDataManipulationHelper;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\Users\Helpers;
+namespace Modules\Users\Helpers;
 
-use App\Modules\Users\Models\User;
+use Modules\Users\Models\User;
 
 class UsersHelper
 {

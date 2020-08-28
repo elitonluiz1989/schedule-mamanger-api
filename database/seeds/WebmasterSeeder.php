@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\Role;
-use App\Modules\Users\Models\User;
-use App\Modules\Users\Models\UserPermission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Modules\Users\Models\User;
+use Modules\Users\Models\UserPermission;
 
 class WebmasterSeeder extends Seeder
 {
