@@ -20,4 +20,4 @@ The including of nested routes need be done with require because require_once fa
 on the tests when we call the same route twice or more times
 */
 
-require 'auth.php';
+require modules_path('Users/routes/auth.php');
