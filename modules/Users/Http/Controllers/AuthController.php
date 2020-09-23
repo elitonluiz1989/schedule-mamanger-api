@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         $this->repository = $repository;
 
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('jwt.auth', ['except' => ['login']]);
     }
 
     /**
@@ -50,7 +50,9 @@ class AuthController extends Controller
     public function me(): JsonResponse
     {
         try {
-            return response()->json(auth()->user());
+            $user = auth()->user()->toArray();
+
+            return response()->json($user);
         } catch (Exception $ex) {
             return response()->json(['error' => $ex->getMessage()], 500);
         }

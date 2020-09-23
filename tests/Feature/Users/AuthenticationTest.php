@@ -15,31 +15,10 @@ class AuthenticationTest extends AuthTestBase
     }
 
     /** @test */
-    public function it_should_get_an_error_on_set_wrong_credentials(): void
-    {
-        $credentials = $this->getAuthUserCredentials('secret');
-        $response = $this->postJson('/login', $credentials);
-
-        $response->assertUnauthorized();
-        $response->assertJsonStructure(['error']);
-    }
-
-    /** @test */
-    public function it_should_get_a_token_when_pass_correct_credentials(): void
-    {
-        $this->setAuthUserOnDatabase();
-
-        $response = $this->postJson('/login', $this->credentials);
-
-        $response->assertSuccessful();
-        $response->assertJsonStructure(['access_token']);
-    }
-
-    /** @test */
     public function it_should_unauthorized_to_access_user_info(): void
     {
+        $this->withExceptionHandling();
         $response = $this->getJson('/me');
-
         $response->assertUnauthorized();
     }
 

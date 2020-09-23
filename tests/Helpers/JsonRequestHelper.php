@@ -72,7 +72,7 @@ trait JsonRequestHelper
 	 *
 	 * @return string
 	 */
-	protected function getUri(): string
+	public function getUri(): string
 	{
 		return $this->currentUri ?? $this->uri;
 	}

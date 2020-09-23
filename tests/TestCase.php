@@ -63,6 +63,8 @@ abstract class TestCase extends BaseTestCase
         $token = JWTAuth::fromUser($user);
         $this->withHeader('Authorization', "Bearer {$token}");
         $user->api_token = $token;
+        $user->save();
+
         parent::actingAs($user);
 
         return $this;
