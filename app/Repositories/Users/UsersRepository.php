@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\Users\Repositories;
+namespace App\Repositories\Users;
 
+use App\Models\Users\User;
 use App\Repositories\BaseRepository;
-use Modules\Users\Models\User;
 
 class UsersRepository extends BaseRepository
 {

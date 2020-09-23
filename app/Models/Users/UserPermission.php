@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Users\Models;
+namespace App\Models\Users;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;

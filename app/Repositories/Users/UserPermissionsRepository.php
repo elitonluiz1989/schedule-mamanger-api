@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Users\Repositories;
+namespace App\Repositories\Users;
 
+use App\Models\Users\UserPermission;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Users\Models\UserPermission;
 
 class UserPermissionsRepository extends BaseRepository
 {

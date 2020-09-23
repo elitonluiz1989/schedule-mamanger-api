@@ -3,8 +3,8 @@
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Modules\Users\Models\User;
-use Modules\Users\Models\UserPermission;
+use App\Models\Users\User;
+use App\Models\Users\UserPermission;
 
 class WebmasterSeeder extends Seeder
 {

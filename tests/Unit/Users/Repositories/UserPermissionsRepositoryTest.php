@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Users\Repositories;
 
+use App\Helpers\UsersHelper;
+use App\Models\Users\User;
+use App\Models\Users\UserPermission;
 use App\Repositories\BaseRepository;
+use App\Repositories\Users\UserPermissionsRepository;
 use Exception;
-use Modules\Users\Helpers\UsersHelper;
-use Modules\Users\Models\User;
-use Modules\Users\Models\UserPermission;
-use Modules\Users\Repositories\UserPermissionsRepository;
 use Tests\Unit\Helpers\RepositoryData;
 use Tests\Unit\Helpers\RepositoryDataManipulationHelper;
 use Tests\TestCase;

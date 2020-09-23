@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Helpers;
 
+use App\Models\Users\User;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Modules\Users\Models\User;
 use WebmasterSeeder;
 
 trait AuthTestHelper

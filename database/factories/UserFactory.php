@@ -3,9 +3,9 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Role;
+use App\Models\Users\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
-use Modules\Users\Models\User;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
